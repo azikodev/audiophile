@@ -1,0 +1,5 @@
+export {default as Navbar} from "./Navbar.jsx"
+export {default as Footer} from "./Footer.jsx"
+export {default as MainBtn} from "./MainBtn.jsx"
+export {default as ShoppingLink} from "./ShoppingLink.jsx"
+export {default as Features} from "./Features.jsx"
