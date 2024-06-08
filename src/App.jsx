@@ -6,12 +6,19 @@ import { loader as SpeakersLoader } from "./pages/Speakers";
 import { loader as EarphonesLoader } from "./pages/Earphones";
 import { loader as detailsPage } from "./pages/DeatilsPage";
 
+//components
+import ProtectedRoutes from "./components/ProtectedRoutes";
+
 //react router dom
-import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  Router,
+  RouterProvider,
+} from "react-router-dom";
 
 //useeffect
-import { useEffect } from 'react';
-
+import { useEffect } from "react";
 
 //pages
 import {
@@ -24,16 +31,23 @@ import {
   Trash,
   Error,
   DeatilsPage,
+  Login,
+  Signup,
 } from "./pages";
 
 function App() {
+  const user = true;
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   const routes = createBrowserRouter([
     {
       path: "/",
-      element: <HomeLayout />,
+      element: (
+        <ProtectedRoutes user={user}>
+          <HomeLayout />
+        </ProtectedRoutes>
+      ),
       errorElement: <Error />,
       children: [
         {
@@ -71,6 +85,16 @@ function App() {
           loader: TrashLoader,
         },
       ],
+    },
+    {
+      path: "/login",
+      element: user ? <Navigate to="/" /> : <Login />,
+      errorElement: <Error />,
+    },
+    {
+      path: "/signup",
+      element: user ? <Navigate to="/" /> : <Signup />,
+      errorElement: <Error />,
     },
   ]);
   return <RouterProvider router={routes} />;
